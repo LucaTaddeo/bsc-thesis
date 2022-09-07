@@ -1,0 +1,51 @@
+@startuml containerDiagram
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+
+!define DEVICONS https://raw.githubusercontent.com/tupadr3/plantuml-icon-font-sprites/master/devicons
+!define FONTAWESOME https://raw.githubusercontent.com/tupadr3/plantuml-icon-font-sprites/master/font-awesome-5
+!define DEVICONS2 https://raw.githubusercontent.com/tupadr3/plantuml-icon-font-sprites/master/devicons2
+!define MATERIAL https://raw.githubusercontent.com/tupadr3/plantuml-icon-font-sprites/master/material
+!define MOVESENSE img:movesenseLogo.png
+
+!include DEVICONS2/javascript.puml
+!include DEVICONS2/github_original.puml
+!include DEVICONS/msql_server.puml
+!include FONTAWESOME/users.puml
+!include FONTAWESOME/user.puml
+!include FONTAWESOME/connectdevelop.puml
+!include MATERIAL/settings.puml
+!include MATERIAL/memory.puml
+!include DEVICONS2/android.puml
+!include FONTAWESOME/file.puml
+
+HIDE_STEREOTYPE()
+LAYOUT_LEFT_RIGHT()
+
+
+Person(staff, "Gym Staff", $sprite="users", $link="https://github.com/plantuml-stdlib/C4-PlantUML/blob/master/LayoutOptions.md#hide_person_sprite-or-show_person_spritesprite")
+Person(climber, "Climbers", $sprite="users", $link="https://github.com/plantuml-stdlib/C4-PlantUML/blob/master/LayoutOptions.md#hide_person_sprite-or-show_person_spritesprite")
+Person(admin, "System Admin", $sprite="user", $link="https://github.com/plantuml-stdlib/C4-PlantUML/blob/master/LayoutOptions.md#hide_person_sprite-or-show_person_spritesprite")
+
+Boundary(systemBoundary, "Data Collection System") {
+    Container(sensorsNetwork, "Sensors Network", "Suunto Movesense HR+", "Monitors the activity on climbing walls", $sprite="MOVESENSE{scale=0.2}")
+    Container(androidApp, "Mobile Application", "Android, Java", "Connects to sensors, reads data, writes it to a local file system and to the backend", $sprite="android")
+    Container(fileSystem, "File System", "", "Stores the sensed data locally", $sprite="file")
+}
+
+System_Ext(github, "GitHub", "Version Control System", $sprite="github_original")
+System_Ext(backend, "Backend", "Processes and analyzes collected data", $sprite="settings")
+System_Ext(dashboard, "Dashboard", "Provides a graphical representation of data about climbing activity", $sprite="javascript")
+
+
+Rel(climber, sensorsNetwork, "Use", "climbing")
+Rel(staff, sensorsNetwork, "Maintains")
+Rel(admin, sensorsNetwork, "Manages", "Adds and removes sensors")
+BiRel_Up(androidApp, sensorsNetwork, "Reads/Writes", "BLE")
+BiRel_Up(androidApp, fileSystem, "Reads/Writes", "")
+
+Rel_Right(androidApp, backend, "Writes", "JSON/HTTPS")
+Rel(dashboard, backend, "Uses", "async, JSON/HTTPS")
+Rel_Right(androidApp, github, "Reads/Writes", "SSH, HTTPS")
+
+Lay_R(dashboard, androidApp)
+@enduml

@@ -1,0 +1,104 @@
+@startuml componentDiagram
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
+
+!define DEVICONS https://raw.githubusercontent.com/tupadr3/plantuml-icon-font-sprites/master/devicons
+!define FONTAWESOME https://raw.githubusercontent.com/tupadr3/plantuml-icon-font-sprites/master/font-awesome-5
+!define DEVICONS2 https://raw.githubusercontent.com/tupadr3/plantuml-icon-font-sprites/master/devicons2
+!define MATERIAL https://raw.githubusercontent.com/tupadr3/plantuml-icon-font-sprites/master/material
+!define MOVESENSE img:movesenseLogo.png
+
+!include DEVICONS/angular.puml
+!include DEVICONS2/github_original.puml
+!include DEVICONS/msql_server.puml
+!include FONTAWESOME/users.puml
+!include FONTAWESOME/user.puml
+!include FONTAWESOME/connectdevelop.puml
+!include MATERIAL/settings.puml
+!include MATERIAL/memory.puml
+!include DEVICONS2/android.puml
+!include FONTAWESOME/file.puml
+
+HIDE_STEREOTYPE()
+
+Container_Boundary(mobileApp, "Android Application for Data Collection") {
+
+    Component(logger, "Logger", "Java, android.util.Log", "Handles logging of the application (used by all components)")
+    Component(dfu, "Device Firmware Update Manager", "Java", "Allows to update the sensor's firmware via bluetooth")
+    Component(devicesManager, "Devices Manager", "Java", "Scans the network to find sensors and stores information about the connected devices")
+
+    Container_Boundary(movesenseMDS, "Movesense Mobile Library") {
+        Component(notificationListener, "Operations Handler", "Java", "Provides an interface to send requests to the sensors and handle the responses")
+        Component(bluetooth, "Connectivity Manager", "BLE, Java", "Handles communication with the sensors")
+    }
+
+    Boundary(sensors, "Multi-Sensor Component"){
+        Component(accelerometer, "Accelerometer Component", "Java", "Handles notifications from and subscriptions to the accelerometer service provider")
+        Component(gyroscope, "Gyroscope Component", "Java", "Handles notifications from and subscriptions to the gyroscope service provider")
+        Component(magnetometer, "Magnetometer Component", "Java", "Handles notifications from and subscriptions to the magnetometer service provider")
+    }
+
+    Boundary(a, "Multi-Sensor Component"){
+        Component(q, "", "")
+    }
+
+    Component(dataFormatter, "Data Formatter", "Java, JSON", "Cleans and formats the data")
+
+    Component(fileWriter, "File Writer", "Java, android.util.JsonWriter", "Writes the sensed data on the local file system")
+    Component(backendConnector, "Backend Connector", "Java, REST", "Connects to the backend and sends the sensed, formatted data")
+    Component(errorHandler, "Error Handler", "Java", "Handles errors during notifications' resolution")
+}
+
+
+Container(sensorsNetwork, "Sensors Network", "Movesense HR+", "Monitors the activity on climbing walls", $sprite="MOVESENSE{scale=0.2}")
+Container(fileSystem, "File System", "", "Stores the sensed data locally", $sprite="file")
+
+
+System_Ext(github, "GitHub", "Version Control System", $sprite="github_original")
+System_Ext(backend, "Backend", "Processes and analyzes collected data", $sprite="settings")
+
+BiRel_Down(sensorsNetwork, bluetooth, "Read/Write", "Whiteboard System Service over BLE")
+Rel(devicesManager, sensorsNetwork, "Finds and lists", "BLE, Radio")
+Lay_D(dfu, logger)
+Lay_R(devicesManager, movesenseMDS)
+Lay_R(dfu, movesenseMDS)
+
+Rel_Up(dfu, sensorsNetwork, "Updates the sensors' firmware", "Bluetooth")
+
+BiRel(bluetooth, devicesManager, "Uses") 
+
+Rel_Down(bluetooth, notificationListener, "Sends responses and notifications to")
+Rel_Up(notificationListener, bluetooth, "Sends requests to")
+
+Rel_Down(notificationListener, a, "Forwards notifications to ")
+Rel_Up(a, notificationListener, "Subscribes to the sensors' service providers using")
+
+Rel_Down(a, sensors, "Forwards notifications to ")
+Rel_Up(sensors, a, "Subscribes to the sensors' service providers using")
+
+Lay_D(movesenseMDS, a)
+Lay_U(a, sensors)
+Lay_L(sensors, a)
+
+Lay_D(notificationListener, sensors)
+
+Rel_Down(sensors, errorHandler, "Resolves errors using ")
+
+Rel_Right(sensors, dataFormatter, "Formats the data using")
+
+Rel_Right(dataFormatter, fileWriter, "Appends the data to a JSON file using")
+Rel_Right(fileWriter, fileSystem, "Reads from and writes to")
+
+Rel_Right(dataFormatter, backendConnector, "Sends data to the backend using")
+Rel_Right(backendConnector, backend, "Connects to")
+
+Lay_R(sensors, errorHandler)
+Lay_R(sensors, dataFormatter)
+Lay_D(errorHandler, dataFormatter)
+Lay_D(backendConnector, fileWriter)
+
+Lay_D(accelerometer, gyroscope)
+Lay_D(gyroscope, magnetometer)
+
+Rel_Up(mobileApp, github, "Retrieves updated versions from", "SSH/HTTPS")
+
+@enduml

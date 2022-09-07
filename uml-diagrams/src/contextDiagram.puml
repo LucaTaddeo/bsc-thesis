@@ -1,0 +1,39 @@
+@startuml contextDiagram
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Context.puml
+
+!define DEVICONS https://raw.githubusercontent.com/tupadr3/plantuml-icon-font-sprites/master/devicons
+!define FONTAWESOME https://raw.githubusercontent.com/tupadr3/plantuml-icon-font-sprites/master/font-awesome-5
+!define DEVICONS2 https://raw.githubusercontent.com/tupadr3/plantuml-icon-font-sprites/master/devicons2
+!define MATERIAL https://raw.githubusercontent.com/tupadr3/plantuml-icon-font-sprites/master/material
+
+!include DEVICONS2/javascript.puml
+!include DEVICONS2/github_original.puml
+!include FONTAWESOME/users.puml
+!include FONTAWESOME/user.puml
+!include FONTAWESOME/connectdevelop.puml
+!include DEVICONS/angular.puml
+!include MATERIAL/settings.puml
+
+HIDE_STEREOTYPE()
+
+LAYOUT_LEFT_RIGHT()
+
+Person(staff, "Gym Staff", $sprite="users", $link="https://github.com/plantuml-stdlib/C4-PlantUML/blob/master/LayoutOptions.md#hide_person_sprite-or-show_person_spritesprite")
+Person(climber, "Climbers", $sprite="users", $link="https://github.com/plantuml-stdlib/C4-PlantUML/blob/master/LayoutOptions.md#hide_person_sprite-or-show_person_spritesprite")
+Person(admin, "System Admin", $sprite="user", $link="https://github.com/plantuml-stdlib/C4-PlantUML/blob/master/LayoutOptions.md#hide_person_sprite-or-show_person_spritesprite")
+
+System(system,"Data Collection System", "Infrastructure for the collection of data about indoor climbing activity", $sprite="connectdevelop")
+
+System_Ext(github, "GitHub", "Version Control System", $sprite="github_original")
+System_Ext(backend, "Backend", "Processes and analyzes collected data", $sprite="settings")
+System_Ext(dashboard, "Dashboard", "Provides a graphical representation of data about climbing activity", $sprite="javascript")
+
+Rel(climber, system, "Uses", "climbing")
+Rel(staff, system, "Maintains")
+Rel(admin, system, "Manages")
+Rel(system, backend, "Writes", "JSON/HTTPS")
+Rel_Down(dashboard, backend, "Uses", "async, JSON/HTTPS")
+Rel(system, github, "Reads/Writes", "SSH, HTTPS")
+
+Lay_R(dashboard, system)
+@enduml
