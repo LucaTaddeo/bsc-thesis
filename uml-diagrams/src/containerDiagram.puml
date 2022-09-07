@@ -46,7 +46,7 @@ BiRel_Up(androidApp, fileSystem, "Reads/Writes", "")
 Rel_Up(androidApp, backend, "Writes", "JSON/HTTPS")
 Rel_Right(androidApp, github, "Reads/Writes", "SSH, HTTPS")
 
-Lay_R(sensorsNetwork, fileSystem)
+Lay_L(sensorsNetwork, fileSystem)
 Lay_D(backend, github)
 Lay_R(androidApp, backend)
 Lay_R(androidApp, github)
