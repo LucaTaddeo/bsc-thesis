@@ -34,18 +34,20 @@ Boundary(systemBoundary, "Data Collection System") {
 
 System_Ext(github, "GitHub", "Version Control System", $sprite="github_original")
 System_Ext(backend, "Backend", "Processes and analyzes collected data", $sprite="settings")
-System_Ext(dashboard, "Dashboard", "Provides a graphical representation of data about climbing activity", $sprite="javascript")
 
 
 Rel(climber, sensorsNetwork, "Use", "climbing")
 Rel(staff, sensorsNetwork, "Maintains")
 Rel(admin, sensorsNetwork, "Manages", "Adds and removes sensors")
+
 BiRel_Up(androidApp, sensorsNetwork, "Reads/Writes", "BLE")
 BiRel_Up(androidApp, fileSystem, "Reads/Writes", "")
 
-Rel_Right(androidApp, backend, "Writes", "JSON/HTTPS")
-Rel(dashboard, backend, "Uses", "async, JSON/HTTPS")
+Rel_Up(androidApp, backend, "Writes", "JSON/HTTPS")
 Rel_Right(androidApp, github, "Reads/Writes", "SSH, HTTPS")
 
-Lay_R(dashboard, androidApp)
+Lay_R(sensorsNetwork, fileSystem)
+Lay_D(backend, github)
+Lay_R(androidApp, backend)
+Lay_R(androidApp, github)
 @enduml

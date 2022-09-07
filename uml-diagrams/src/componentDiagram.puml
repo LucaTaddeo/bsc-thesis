@@ -23,7 +23,7 @@ HIDE_STEREOTYPE()
 Container_Boundary(mobileApp, "Android Application for Data Collection") {
 
     Component(logger, "Logger", "Java, android.util.Log", "Handles logging of the application (used by all components)")
-    Component(dfu, "Device Firmware Update Manager", "Java", "Allows to update the sensor's firmware via bluetooth")
+    Component(dfu, "DFU Manager", "Java", "Allows to update the sensor's firmware via Bluetooth")
     Component(devicesManager, "Devices Manager", "Java", "Scans the network to find sensors and stores information about the connected devices")
 
     Container_Boundary(movesenseMDS, "Movesense Mobile Library") {
