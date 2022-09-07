@@ -24,7 +24,7 @@ Container_Boundary(mobileApp, "Android Application for Data Collection") {
 
     Component(logger, "Logger", "Java, android.util.Log", "Handles logging of the application (used by all components)")
     Component(dfu, "DFU Manager", "Java", "Allows to update the sensor's firmware via Bluetooth")
-    Component(devicesManager, "Devices Manager", "Java", "Scans the network to find sensors and stores information about the connected devices")
+    Component(devicesManager, "Devices Manager", "Java, android.bluetooth", "Scans the network to find sensors and stores information about the connected devices")
 
     Container_Boundary(movesenseMDS, "Movesense Mobile Library") {
         Component(notificationListener, "Operations Handler", "Java", "Provides an interface to send requests to the sensors and handle the responses")
@@ -41,9 +41,9 @@ Container_Boundary(mobileApp, "Android Application for Data Collection") {
         Component(q, "", "")
     }
 
-    Component(dataFormatter, "Data Formatter", "Java, JSON", "Cleans and formats the data")
+    Component(dataFormatter, "Data Formatter", "Java, com.fasterxml.jackson", "Cleans and formats the data")
 
-    Component(fileWriter, "File Writer", "Java, android.util.JsonWriter", "Writes the sensed data on the local file system")
+    Component(fileWriter, "File Writer", "Java, android.os", "Writes the sensed data on the local file system")
     Component(backendConnector, "Backend Connector", "Java, REST", "Connects to the backend and sends the sensed, formatted data")
     Component(errorHandler, "Error Handler", "Java", "Handles errors during notifications' resolution")
 }
