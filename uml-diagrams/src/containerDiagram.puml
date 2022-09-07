@@ -28,7 +28,7 @@ Person(admin, "System Admin", $sprite="user", $link="https://github.com/plantuml
 
 Boundary(systemBoundary, "Data Collection System") {
     Container(sensorsNetwork, "Sensors Network", "Suunto Movesense HR+", "Monitors the activity on climbing walls", $sprite="MOVESENSE{scale=0.2}")
-    Container(androidApp, "Mobile Application", "Android, Java", "Connects to sensors, reads data, writes it to a local file system and to the backend", $sprite="android")
+    Container(androidApp, "Android Application for Data Collection", "Android, Java", "Connects to sensors, reads data, writes it to a local file system and to the backend", $sprite="android")
     Container(fileSystem, "File System", "", "Stores the sensed data locally", $sprite="file")
 }
 

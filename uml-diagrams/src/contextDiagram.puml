@@ -22,7 +22,7 @@ Person(staff, "Gym Staff", $sprite="users", $link="https://github.com/plantuml-s
 Person(climber, "Climbers", $sprite="users", $link="https://github.com/plantuml-stdlib/C4-PlantUML/blob/master/LayoutOptions.md#hide_person_sprite-or-show_person_spritesprite")
 Person(admin, "System Admin", $sprite="user", $link="https://github.com/plantuml-stdlib/C4-PlantUML/blob/master/LayoutOptions.md#hide_person_sprite-or-show_person_spritesprite")
 
-System(system,"Data Collection System", "Infrastructure for the collection of data about indoor climbing activity", $sprite="connectdevelop")
+System(system,"Data Collection System", "System for the collection of data about indoor climbing activity", $sprite="connectdevelop")
 
 System_Ext(github, "GitHub", "Version Control System", $sprite="github_original")
 System_Ext(backend, "Backend", "Processes and analyzes collected data", $sprite="settings")
