@@ -6,7 +6,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:4.0.1'
+        classpath 'com.android.tools.build:gradle:7.2.0'
     }
 }
 
@@ -64,10 +64,11 @@ android {
             //  signingConfig signingConfigs.config
         }
     }
-
-    lintOptions {
+    lint {
         abortOnError true
     }
+    namespace 'com.lucataddeo.datacollectionapp'
+
 }
 
 dependencies {
