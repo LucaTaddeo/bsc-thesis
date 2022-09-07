@@ -20,15 +20,15 @@
 
 HIDE_STEREOTYPE()
 
-Container_Boundary(mobileApp, "Android Application for Data Collection") {
+Boundary(mobileApp, "Android Application for Data Collection") {
 
     Component(logger, "Logger", "Java, android.util.Log", "Handles logging of the application (used by all components)")
     Component(dfu, "DFU Manager", "Java", "Allows to update the sensor's firmware via Bluetooth")
     Component(devicesManager, "Devices Manager", "Java, android.bluetooth", "Scans the network to find sensors and stores information about the connected devices")
 
-    Container_Boundary(movesenseMDS, "Movesense Mobile Library") {
+    Boundary(movesenseMDS, "Movesense Mobile Library") {
         Component(notificationListener, "Operations Handler", "Java", "Provides an interface to send requests to the sensors and handle the responses")
-        Component(bluetooth, "Connectivity Manager", "BLE, Java", "Handles communication with the sensors")
+        Component(bluetooth, "Connectivity Manager", "BLE, Java", "Handles sensors communication")
     }
 
     Boundary(sensors, "Multi-Sensor Component"){
@@ -36,11 +36,7 @@ Container_Boundary(mobileApp, "Android Application for Data Collection") {
         Component(gyroscope, "Gyroscope Component", "Java", "Handles notifications from and subscriptions to the gyroscope service provider")
         Component(magnetometer, "Magnetometer Component", "Java", "Handles notifications from and subscriptions to the magnetometer service provider")
     }
-
-    Boundary(a, "Multi-Sensor Component"){
-        Component(q, "", "")
-    }
-
+    
     Component(dataFormatter, "Data Formatter", "Java, com.fasterxml.jackson", "Cleans and formats the data")
 
     Component(fileWriter, "File Writer", "Java, android.os", "Writes the sensed data on the local file system")
@@ -69,15 +65,9 @@ BiRel(bluetooth, devicesManager, "Uses")
 Rel_Down(bluetooth, notificationListener, "Sends responses and notifications to")
 Rel_Up(notificationListener, bluetooth, "Sends requests to")
 
-Rel_Down(notificationListener, a, "Forwards notifications to ")
-Rel_Up(a, notificationListener, "Subscribes to the sensors' service providers using")
+Rel_Down(notificationListener, sensors, "Forwards notifications to ")
+Rel_Up(sensors, notificationListener, "Subscribes to the sensors' service providers using")
 
-Rel_Down(a, sensors, "Forwards notifications to ")
-Rel_Up(sensors, a, "Subscribes to the sensors' service providers using")
-
-Lay_D(movesenseMDS, a)
-Lay_U(a, sensors)
-Lay_L(sensors, a)
 
 Lay_D(notificationListener, sensors)
 
