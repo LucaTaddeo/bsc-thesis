@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          xmlns:tools="http://schemas.android.com/tools" package="com.lucataddeo.datacollectionapp">
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
+    <uses-permission android:name="android.permission.BLUETOOTH"/>
+    <uses-permission android:name="android.permission.MANAGE_DOCUMENTS" tools:ignore="ProtectedPermissions"/>
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
+
+    <uses-feature
+        android:name="android.hardware.bluetooth_le"
+        android:required="true"/>
+
+    <application
+        android:name="com.lucataddeo.datacollectionapp.SampleApp"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name="com.lucataddeo.datacollectionapp.app_sections.single_connection.tests.LedTestActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="com.lucataddeo.datacollectionapp.app_sections.single_connection.tests.LinearAccelerationTestActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="com.lucataddeo.datacollectionapp.app_sections.single_connection.tests.HeartRateTestActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="com.lucataddeo.datacollectionapp.app_sections.single_connection.tests.TemperatureTestActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="com.lucataddeo.datacollectionapp.app_sections.single_connection.tests.MagneticFieldTestActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="com.lucataddeo.datacollectionapp.app_sections.single_connection.tests.AngularVelocityActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="com.lucataddeo.datacollectionapp.app_sections.single_connection.tests.MultiSubscribeActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="com.lucataddeo.datacollectionapp.google_drive.SendLogsToGoogleDriveActivity"
+            android:screenOrientation="portrait"/>
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_provider_paths"/>
+        </provider>
+
+        <service
+            android:name=".app_sections.dfu.DfuService"
+            android:enabled="true"
+            android:exported="true"/>
+
+        <receiver
+            android:name="com.lucataddeo.datacollectionapp.adb.AdbBridge"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MOVESENSE"/>
+            </intent-filter>
+        </receiver>
+
+        <activity
+            android:name="com.lucataddeo.datacollectionapp.app_sections.main_view.MainViewActivity"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MY_ACTION"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.lucataddeo.datacollectionapp.app_sections.single_connection.MovesenseActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="com.lucataddeo.datacollectionapp.app_sections.multi_connection.connection.MultiConnectionActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="com.lucataddeo.datacollectionapp.app_sections.about.AboutActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="com.lucataddeo.datacollectionapp.app_sections.single_connection.sensors.sensors_list.SensorListActivity"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".app_sections.dfu.DfuActivity2"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name="com.lucataddeo.datacollectionapp.app_sections.multi_connection.sensor_usage.MultiSensorUsageActivity"
+            android:screenOrientation="portrait">
+        </activity>
+<!--        <activity-->
+<!--            android:name=".section_01_movesense.tests.EcgActivity"-->
+<!--            android:screenOrientation="portrait"-->
+<!--            android:configChanges="keyboardHidden|orientation|screenSize">-->
+<!--        </activity>-->
+
+<!--        <activity-->
+<!--            android:name=".section_01_movesense.tests.EcgActivityGraphView"-->
+<!--            android:screenOrientation="portrait"-->
+<!--            android:configChanges="keyboardHidden|orientation|screenSize">-->
+<!--        </activity>-->
+        <activity
+            android:name="com.lucataddeo.datacollectionapp.app_sections.single_connection.tests.BatteryActivity"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name="com.lucataddeo.datacollectionapp.app_sections.single_connection.tests.AppInfoActivity"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name="com.lucataddeo.datacollectionapp.app_sections.single_connection.tests.ImuActivity"
+            android:screenOrientation="portrait">
+        </activity>
+
+        <receiver
+            android:name="com.lucataddeo.datacollectionapp.bluetooth.BluetoothStatusReceiver"
+            android:enabled="true"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.bluetooth.adapter.action.STATE_CHANGED"/>
+            </intent-filter>
+        </receiver>
+
+        <activity
+            android:name="com.lucataddeo.datacollectionapp.app_sections.single_connection.device_settings.DeviceSettingsActivity"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity android:name="com.lucataddeo.datacollectionapp.BaseActivity">
+        </activity>
+        <activity
+            android:name="com.lucataddeo.datacollectionapp.app_sections.single_connection.tests.MemoryDiagnosticActivity"
+            android:screenOrientation="portrait">
+        </activity>
+    </application>
+
+</manifest>

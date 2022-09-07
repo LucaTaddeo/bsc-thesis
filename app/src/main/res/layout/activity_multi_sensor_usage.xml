@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBackground">
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        tools:context="com.lucataddeo.datacollectionapp.app_sections.multi_connection.sensor_usage.MultiSensorUsageActivity">
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorText"
+            android:text="Connected Sensors: 12"
+            android:id="@+id/multiSensorUsage_numberOfSensors"
+            />
+
+        <!--Linear Text-->
+        <TextView
+            android:id="@+id/multiSensorUsage_linearAcc_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="25dp"
+            android:text="Linear Acceleration"
+            android:textColor="@color/colorText"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/multiSensorUsage_numberOfSensors" />
+
+        <!--Linear Switch-->
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/multiSensorUsage_linearAcc_switch"
+            style="@style/SwitchStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            app:layout_constraintBaseline_toBaselineOf="@id/multiSensorUsage_linearAcc_textView"
+            app:layout_constraintLeft_toRightOf="@id/multiSensorUsage_linearAcc_textView" />
+
+        <!--Linear Data container-->
+        <LinearLayout
+            android:id="@+id/multiSensorUsage_linearAcc_containerLl"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:orientation="vertical"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/multiSensorUsage_linearAcc_textView"
+            tools:layout_editor_absoluteX="8dp"
+            tools:layout_editor_absoluteY="0dp"></LinearLayout>
+
+        <!--AngularVelocity Text-->
+        <TextView
+            android:id="@+id/multiSensorUsage_angularVelocity_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:text="Angular Velocity"
+            android:textColor="@color/colorText"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/multiSensorUsage_linearAcc_containerLl" />
+
+        <!--AngularVelocity Switch-->
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/multiSensorUsage_angularVelocity_switch"
+            style="@style/SwitchStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="10dp"
+            app:layout_constraintBaseline_toBaselineOf="@id/multiSensorUsage_angularVelocity_textView"
+            app:layout_constraintLeft_toRightOf="@id/multiSensorUsage_angularVelocity_textView" />
+
+        <!--AngularVelocity Data container-->
+        <LinearLayout
+            android:id="@+id/multiSensorUsage_angularVelocity_containerLl"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:orientation="vertical"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/multiSensorUsage_angularVelocity_textView"
+            tools:layout_editor_absoluteX="8dp"
+            tools:layout_editor_absoluteY="0dp">
+
+        </LinearLayout>
+
+
+        <!--MagneticField Text-->
+        <TextView
+            android:id="@+id/multiSensorUsage_magneticField_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:text="Magnetic Field"
+            android:textColor="@color/colorText"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/multiSensorUsage_angularVelocity_containerLl" />
+
+        <!--MagneticField Switch-->
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/multiSensorUsage_magneticField_switch"
+            style="@style/SwitchStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            app:layout_constraintBaseline_toBaselineOf="@id/multiSensorUsage_magneticField_textView"
+            app:layout_constraintLeft_toRightOf="@id/multiSensorUsage_magneticField_textView" />
+
+        <!-- MagneticField Data container-->
+        <LinearLayout
+            android:id="@+id/multiSensorUsage_magneticField_containerLl"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:orientation="vertical"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/multiSensorUsage_magneticField_textView"
+            tools:layout_editor_absoluteX="8dp"
+            tools:layout_editor_absoluteY="0dp"></LinearLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
